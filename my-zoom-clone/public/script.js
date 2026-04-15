@@ -111,13 +111,15 @@ document.getElementById('video-btn').addEventListener('click', () => {
     document.getElementById('video-btn').innerText = enabled ? "Stop Video" : "Start Video"
     const copyBtn = document.getElementById('copy-link-btn');
 
-copyBtn.addEventListener('click', () => {
-    // This gets the full URL of the room you are currently in
-    const roomUrl = window.location.href;
+// 1. First, finish the video button code
+document.getElementById('video-btn').addEventListener('click', () => {
+    // your video toggle logic here
+}); // <--- Make sure this has its own closing bracket and semicolon
 
-    // Standard way to copy text to clipboard in modern browsers
+// 2. Then, start the copy button code separately
+copyBtn.addEventListener('click', () => {
+    const roomUrl = window.location.href;
     navigator.clipboard.writeText(roomUrl).then(() => {
-        // Change button text temporarily to show it worked
         const originalText = copyBtn.innerText;
         copyBtn.innerText = "Link Copied! ✅";
         copyBtn.style.background = "#27ae60";
@@ -129,4 +131,4 @@ copyBtn.addEventListener('click', () => {
     }).catch(err => {
         console.error('Failed to copy: ', err);
     });
-});
+}); // <--- This closes the copy button
