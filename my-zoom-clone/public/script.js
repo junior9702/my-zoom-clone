@@ -115,20 +115,3 @@ document.getElementById('video-btn').addEventListener('click', () => {
 document.getElementById('video-btn').addEventListener('click', () => {
     // your video toggle logic here
 }); // <--- Make sure this has its own closing bracket and semicolon
-
-// 2. Then, start the copy button code separately
-copyBtn.addEventListener('click', () => {
-    const roomUrl = window.location.href;
-    navigator.clipboard.writeText(roomUrl).then(() => {
-        const originalText = copyBtn.innerText;
-        copyBtn.innerText = "Link Copied! ✅";
-        copyBtn.style.background = "#27ae60";
-
-        setTimeout(() => {
-            copyBtn.innerText = originalText;
-            copyBtn.style.background = "#3498db";
-        }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-    });
-}); // <--- This closes the copy button
