@@ -18,24 +18,13 @@ app.get('/:room', (req, res) => {
 io.on('connection', socket => {
     socket.on('join-room', (roomId, userId, userName) => {
         socket.join(roomId);
-        
-        // Notify others someone joined
         socket.to(roomId).emit('user-connected', userId, userName);
-
-        // Handle Chat Messages
-        socket.on('message', (message) => {
-            io.to(roomId).emit('createMessage', message, userName);
-        });
-
-        // Handle Hand Raise
-        socket.on('raise-hand', () => {
-            io.to(roomId).emit('user-raised-hand', userName);
-        });
-
+        
         socket.on('disconnect', () => {
-            socket.to(roomId).emit('user-disconnected', userId, userName);
+            socket.to(roomId).emit('user-disconnected', userId);
         });
     });
 });
 
-server.listen(3000, () => console.log('Server running on http://localhost:3000'));
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
