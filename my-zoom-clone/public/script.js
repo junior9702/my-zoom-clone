@@ -109,4 +109,24 @@ document.getElementById('video-btn').addEventListener('click', () => {
     const enabled = myStream.getVideoTracks()[0].enabled
     myStream.getVideoTracks()[0].enabled = !enabled
     document.getElementById('video-btn').innerText = enabled ? "Stop Video" : "Start Video"
-})
+    const copyBtn = document.getElementById('copy-link-btn');
+
+copyBtn.addEventListener('click', () => {
+    // This gets the full URL of the room you are currently in
+    const roomUrl = window.location.href;
+
+    // Standard way to copy text to clipboard in modern browsers
+    navigator.clipboard.writeText(roomUrl).then(() => {
+        // Change button text temporarily to show it worked
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = "Link Copied! ✅";
+        copyBtn.style.background = "#27ae60";
+
+        setTimeout(() => {
+            copyBtn.innerText = originalText;
+            copyBtn.style.background = "#3498db";
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+});
